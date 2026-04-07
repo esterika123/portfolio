@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Esterika Simangunsong — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+ :root {
+    --navy: #8B0050;
+    --blue: #D63384;
+    --accent: #FFB6C1;
+    --light: #FFF0F5;
+    --white: #ffffff;
+    --gray: #6b6b6b;
+    --lightgray: #F5C2D8;
+}
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--light);
+    color: var(--navy);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(255,240,245,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--lightgray);
+  }
+  .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--navy); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.85rem; color: var(--gray); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--navy); }
+  .nav-cta {
+    background: var(--navy); color: var(--white);
+    padding: 0.5rem 1.2rem; border-radius: 100px;
+    font-size: 0.82rem; text-decoration: none;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--blue); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    gap: 4rem;
+  }
+  .hero-left { display: flex; flex-direction: column; gap: 1.5rem; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--accent); color: var(--navy);
+    padding: 0.35rem 0.9rem; border-radius: 100px;
+    font-size: 0.78rem; font-weight: 500; width: fit-content;
+  }
+  .hero-tag::before { content: ''; width: 7px; height: 7px; background: var(--navy); border-radius: 50%; }
+  .hero-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    line-height: 1.05;
+    color: var(--navy);
+  }
+  .hero-name em { font-style: italic; color: var(--blue); }
+  .hero-desc {
+    font-size: 1rem; color: var(--gray); line-height: 1.7;
+    max-width: 420px;
+  }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.5rem; }
+  .btn-primary {
+    background: var(--navy); color: var(--white);
+    padding: 0.75rem 1.8rem; border-radius: 100px;
+    font-size: 0.9rem; text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-primary:hover { background: var(--blue); transform: translateY(-1px); }
+  .btn-outline {
+    border: 1.5px solid var(--navy); color: var(--navy);
+    padding: 0.75rem 1.8rem; border-radius: 100px;
+    font-size: 0.9rem; text-decoration: none;
+    transition: background 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-outline:hover { background: var(--navy); color: var(--white); }
+
+  .hero-stats { display: flex; gap: 2.5rem; padding-top: 1rem; border-top: 1px solid var(--lightgray); }
+  .stat-num { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--navy); }
+  .stat-label { font-size: 0.78rem; color: var(--gray); line-height: 1.4; }
+
+  .hero-right { position: relative; display: flex; align-items: center; justify-content: center; }
+  .hero-img-wrap {
+    width: 360px; height: 440px;
+    background: var(--blue);
+    border-radius: 160px 160px 120px 120px;
+    overflow: hidden;
+    display: flex; align-items: flex-end; justify-content: center;
+    position: relative;
+  }
+  .hero-img-placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.85rem; text-align: center; gap: 0.5rem;
+  }
+  .hero-img-placeholder svg { opacity: 0.5; }
+  .hero-badge {
+    position: absolute;
+    background: var(--white);
+    border-radius: 12px;
+    padding: 0.6rem 1rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    font-size: 0.78rem; font-weight: 500;
+  }
+  .badge-gpa { top: 2rem; right: -1rem; color: var(--navy); }
+  .badge-gpa span { font-family: 'DM Serif Display', serif; font-size: 1.2rem; display: block; }
+  .badge-open { bottom: 2rem; left: -1.5rem; background: var(--accent); color: var(--navy); }
+
+  /* SECTIONS */
+  section { padding: 5rem 4rem; }
+  .section-label {
+    font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--blue); font-weight: 500; margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    line-height: 1.1; color: var(--navy); margin-bottom: 2.5rem;
+  }
+
+  /* ABOUT */
+  .about { background: var(--white); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .about-text p { color: var(--gray); line-height: 1.8; font-size: 1rem; margin-bottom: 1rem; }
+  .about-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+  .pill {
+    background: var(--light); color: var(--navy);
+    padding: 0.4rem 1rem; border-radius: 100px;
+    font-size: 0.8rem; border: 1px solid var(--lightgray);
+  }
+  .about-info { display: flex; flex-direction: column; gap: 1.2rem; }
+  .info-row { display: flex; flex-direction: column; gap: 0.2rem; padding-bottom: 1.2rem; border-bottom: 1px solid var(--lightgray); }
+  .info-row:last-child { border-bottom: none; }
+  .info-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray); }
+  .info-val { font-size: 0.95rem; color: var(--navy); font-weight: 500; }
+
+  /* SKILLS */
+  .skills { background: var(--navy); color: var(--white); }
+  .skills .section-label { color: var(--accent); }
+  .skills .section-title { color: var(--white); }
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .skill-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px; padding: 1.5rem;
+    transition: background 0.2s;
+  }
+  .skill-card:hover { background: rgba(255,255,255,0.1); }
+  .skill-category { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 1rem; }
+  .skill-items { display: flex; flex-direction: column; gap: 0.7rem; }
+  .skill-item { display: flex; justify-content: space-between; align-items: center; }
+  .skill-name { font-size: 0.9rem; color: rgba(255,255,255,0.85); }
+  .skill-bar-wrap { width: 80px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 4px; }
+  .skill-bar { height: 100%; background: var(--accent); border-radius: 4px; }
+
+  /* EXPERIENCE */
+  .experience { background: var(--light); }
+  .exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .exp-card {
+    background: var(--white);
+    border: 1px solid var(--lightgray);
+    border-radius: 20px; padding: 2rem;
+    transition: box-shadow 0.2s;
+  }
+  .exp-card:hover { box-shadow: 0 8px 40px rgba(26,31,94,0.08); }
+  .exp-period {
+    display: inline-block;
+    background: var(--light); color: var(--gray);
+    padding: 0.3rem 0.8rem; border-radius: 100px;
+    font-size: 0.75rem; margin-bottom: 1rem;
+  }
+  .exp-role { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--navy); margin-bottom: 0.3rem; }
+  .exp-company { font-size: 0.85rem; color: var(--blue); font-weight: 500; margin-bottom: 1rem; }
+  .exp-points { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .exp-points li { font-size: 0.87rem; color: var(--gray); line-height: 1.6; padding-left: 1rem; position: relative; }
+  .exp-points li::before { content: '—'; position: absolute; left: 0; color: var(--blue); }
+
+  /* PROJECTS */
+  .projects { background: var(--white); }
+  .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .project-card {
+    border: 1px solid var(--lightgray);
+    border-radius: 20px; overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+  }
+  .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(26,31,94,0.1); }
+  .project-thumb {
+    height: 160px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.5rem;
+  }
+  .project-body { padding: 1.5rem; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.8rem; }
+  .project-tag {
+    background: var(--light); color: var(--navy);
+    padding: 0.2rem 0.6rem; border-radius: 100px;
+    font-size: 0.7rem;
+  }
+  .project-title { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--navy); margin-bottom: 0.5rem; }
+  .project-desc { font-size: 0.82rem; color: var(--gray); line-height: 1.6; }
+
+  /* EDUCATION */
+  .education { background: var(--light); }
+  .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .edu-card {
+    background: var(--white);
+    border: 1px solid var(--lightgray);
+    border-radius: 20px; padding: 2rem;
+  }
+  .edu-card.featured { background: var(--navy); color: var(--white); border-color: var(--navy); }
+  .edu-card.featured .edu-sub { color: rgba(255,255,255,0.6); }
+  .edu-card.featured .edu-gpa { color: var(--accent); }
+  .edu-year { font-size: 0.75rem; color: var(--gray); margin-bottom: 0.5rem; }
+  .edu-card.featured .edu-year { color: rgba(255,255,255,0.5); }
+  .edu-name { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: var(--navy); margin-bottom: 0.3rem; }
+  .edu-card.featured .edu-name { color: var(--white); }
+  .edu-sub { font-size: 0.85rem; color: var(--gray); }
+  .edu-gpa { font-size: 0.85rem; color: var(--blue); font-weight: 500; margin-top: 0.5rem; }
+  .cert-list { display: flex; flex-direction: column; gap: 1rem; }
+  .cert-item { padding-bottom: 1rem; border-bottom: 1px solid var(--lightgray); }
+  .cert-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .cert-name { font-size: 0.9rem; font-weight: 500; color: var(--navy); }
+  .cert-org { font-size: 0.78rem; color: var(--gray); }
+
+  /* CONTACT */
+  .contact {
+    background: var(--navy);
+    text-align: center;
+    padding: 6rem 4rem;
+  }
+  .contact .section-label { color: var(--accent); }
+  .contact .section-title { color: var(--white); margin-bottom: 1rem; }
+  .contact-sub { color: rgba(255,255,255,0.6); font-size: 1rem; margin-bottom: 3rem; }
+  .contact-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 0.6rem;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--white); padding: 0.8rem 1.6rem;
+    border-radius: 100px; font-size: 0.88rem;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .contact-link:hover { background: rgba(255,255,255,0.15); }
+
+  /* FOOTER */
+  footer {
+    background: #5a0030;
+    padding: 1.5rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  footer p { font-size: 0.78rem; color: rgba(255,255,255,0.4); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; gap: 3rem; }
+    .hero-right { order: -1; }
+    .hero-img-wrap { width: 240px; height: 300px; }
+    section { padding: 4rem 1.5rem; }
+    .about-grid, .exp-grid, .edu-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Esterika S.</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Contact me</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <span class="hero-tag">Open to Work 2026</span>
+    <h1 class="hero-name">
+      Esterika<br>
+      <em>Simangunsong</em>
+    </h1>
+    <p class="hero-desc">
+      Graphic Designer & Front-End Web Developer lulusan Sistem Informasi UNPRI dengan GPA 3.91. Memadukan kreativitas visual dan kemampuan teknis untuk menciptakan pengalaman digital yang fungsional dan menarik.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">Lihat Proyek</a>
+      <a href="mailto:esterikasimangunsong25@gmail.com" class="btn-outline">Hubungi Saya</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">4+</div>
+        <div class="stat-label">Proyek<br>Selesai</div>
+      </div>
+      <div>
+        <div class="stat-num">1+</div>
+        <div class="stat-label">Tahun<br>Pengalaman</div>
+      </div>
+      <div>
+        <div class="stat-num">3.91</div>
+        <div class="stat-label">IPK<br>dari 4.00</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-wrap">
+      <img src="ika2.png" alt="Esterika Simangunsong"
+        style="width: 100%; height: 100%; object-fit: cover; object-position: top;">
+    </div>
+    <div class="hero-badge badge-gpa">
+      <div class="stat-label">IPK</div>
+      <span>3.91</span>
+    </div>
+    <div class="hero-badge badge-open"> Open to Work</div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-text">
+      <div class="section-label">Tentang Saya</div>
+      <h2 class="section-title">Graphic Designer & Front-End Developer</h2>
+      <p>Saya lulusan S1 Sistem Informasi dengan pengalaman lebih dari 1 tahun di bidang Desain Grafis dan minat kuat pada Front-End Web Development.</p>
+      <p>Terbiasa membuat desain promosi, branding, dan konten digital, serta mengembangkan web melalui proyek kuliah dan magang. Dengan memadukan kreativitas dan kemampuan teknis, saya berkomitmen menghasilkan proyek digital yang fungsional, responsif, dan nyaman digunakan.</p>
+      <div class="about-pills">
+        <span class="pill">Creativity</span>
+        <span class="pill">Attention to Detail</span>
+        <span class="pill">Collaboration</span>
+        <span class="pill">Time Management</span>
+        <span class="pill">Adaptability</span>
+        <span class="pill">Problem Solving</span>
+      </div>
+    </div>
+    <div class="about-info">
+      <div class="info-row">
+        <span class="info-label">Nama</span>
+        <span class="info-val">Esterika Simangunsong, S.Kom</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Lokasi</span>
+        <span class="info-val">Medan, North Sumatra</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Email</span>
+        <span class="info-val">esterikasimangunsong25@gmail.com</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">LinkedIn</span>
+        <span class="info-val">linkedin.com/in/esterikasimangunsong</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Bidang</span>
+        <span class="info-val">Graphic Design · Front-End Web Dev · UI/UX</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Status</span>
+        <span class="info-val" style="color: var(--blue);"> Open to Work</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills" id="skills">
+  <div class="section-label">Keahlian</div>
+  <h2 class="section-title">Tools & Teknologi</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-category">Graphic Design</div>
+      <div class="skill-items">
+        <div class="skill-item"><span class="skill-name">Figma</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Canva</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:95%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Adobe Photoshop</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div></div>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-category">Web Development</div>
+      <div class="skill-items">
+        <div class="skill-item"><span class="skill-name">HTML & CSS</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:88%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">JavaScript</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:75%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">PHP</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:70%"></div></div></div>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-category">Mobile & Data</div>
+      <div class="skill-items">
+        <div class="skill-item"><span class="skill-name">Kotlin (Android)</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">SQL</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">MS Excel</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience" id="experience">
+  <div class="section-label">Pengalaman</div>
+  <h2 class="section-title">Work Experience</h2>
+  <div class="exp-grid">
+    <div class="exp-card">
+      <span class="exp-period">Feb 2024 – Jun 2024</span>
+      <div class="exp-role">UI/UX Designer & Android Developer</div>
+      <div class="exp-company">PT Kinema Systrans Multimedia — Intern</div>
+      <ul class="exp-points">
+        <li>Berkolaborasi dalam tim 6 orang untuk mengembangkan dua proyek berbasis Android menggunakan Kotlin.</li>
+        <li>Merancang 5 wireframe dan prototipe interaktif di Figma dengan feedback sprint mingguan.</li>
+        <li>Menerapkan Agile project management dan version control dalam lingkungan kerja profesional.</li>
+      </ul>
+    </div>
+    <div class="exp-card">
+      <span class="exp-period">Mar 2023 – Jul 2023</span>
+      <div class="exp-role">Sales Performance Data Analyst</div>
+      <div class="exp-company">PT Digital Agency Nusantara — Intern</div>
+      <ul class="exp-points">
+        <li>Menganalisis 500+ data penjualan dan performa karyawan menggunakan Excel dan SQL.</li>
+        <li>Mengidentifikasi tren produktivitas dan departemen berkinerja tinggi dari hasil query SQL.</li>
+        <li>Meningkatkan efisiensi pelaporan dengan mengonversi output SQL ke laporan Excel terstruktur.</li>
+      </ul>
+    </div>
+    <div class="exp-card">
+      <span class="exp-period">2024</span>
+      <div class="exp-role">Koordinator Divisi Desain</div>
+      <div class="exp-company">UNPRI Creative — Organisasi Kampus</div>
+      <ul class="exp-points">
+        <li>Memimpin tim 5–7 anggota dalam menyelesaikan 10+ proyek digital dan visual di tingkat universitas.</li>
+      </ul>
+    </div>
+    <div class="exp-card">
+      <span class="exp-period">2023</span>
+      <div class="exp-role">Media Specialist Creative</div>
+      <div class="exp-company">PMM UPN Veteran Jakarta — Student Exchange</div>
+      <ul class="exp-points">
+        <li>Membuat dan mengelola konten media sosial untuk mendukung penyebaran informasi kegiatan PMM.</li>
+        <li>Terlibat dalam 5 mata kuliah lintas disiplin dan kegiatan budaya untuk mempromosikan keberagaman.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <div class="section-label">Portofolio</div>
+  <h2 class="section-title">Proyek Pilihan</h2>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-thumb" style="background: #1a1f5e;">
+        <img src="loundry.jpg" alt="Homie Laundry"
+        style="width:100%; height: 100%; object-fit: cover;">
+      </div>
+      <div class="project-body">
+        <div class="project-tags">
+          <span class="project-tag">Kotlin</span>
+          <span class="project-tag">Figma</span>
+          <span class="project-tag">Android</span>
+        </div>
+        <div class="project-title">Homie Laundry App & Web</div>
+        <p class="project-desc">Aplikasi pemesanan laundry online dengan fitur pelacakan status real-time dan pembayaran digital. Dibangun dengan Kotlin dan diintegrasikan dengan backend & website.</p>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-thumb" style="background: #1a1f5e;">
+        <img src="kontrakin.jpg" alt="kontrakin"
+        style="width:100%; height: 100%; object-fit: cover;">
+          </div>
+      <div class="project-body">
+        <div class="project-tags">
+          <span class="project-tag">Kotlin</span>
+          <span class="project-tag">PHP</span>
+          <span class="project-tag">JavaScript</span>
+        </div>
+        <div class="project-title">Kontrakin.id</div>
+        <p class="project-desc">Aplikasi pemesanan kontrakan digital yang memungkinkan pengguna mencari dan memesan tempat tinggal secara praktis dan terintegrasi.</p>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-thumb" style="background: #1a1f5e">
+        <img src="body_lotion.png" alt="Black Orchid"
+        style="width:100%; height: 100%; object-fit: cover;">
+      </div>
+      <div class="project-body">
+        <div class="project-tags">
+          <span class="project-tag">Branding</span>
+          <span class="project-tag">Canva</span>
+          <span class="project-tag">Photoshop</span>
+        </div>
+        <div class="project-title">Black Orchid — Branding</div>
+        <p class="project-desc">Visual identity lengkap untuk produk body wash premium: logo, packaging, dan poster promosi. Konsep bunga anggrek dengan nuansa ungu elegan.</p>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-thumb" style="background: #1a1f5e;">
+        <img src="pmm1.png" alt="pmm upnvj"
+        style="width:100%; height: 100%; object-fit: cover;">
+      </div>
+      <div class="project-body">
+        <div class="project-tags">
+          <span class="project-tag">Social Media</span>
+          <span class="project-tag">Canva</span>
+          <span class="project-tag">Content Design</span>
+        </div>
+        <div class="project-title">Social Media Campaign — PMM UPNVJ</div>
+        <p class="project-desc">Desain dan pengelolaan konten media sosial untuk kegiatan PMM UPN Veteran Jakarta. Tampilan clean dan komunikatif untuk menjangkau audiens kampus.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="education" id="education">
+  <div class="section-label">Pendidikan & Sertifikasi</div>
+  <h2 class="section-title">Academic Background</h2>
+  <div class="edu-grid">
+    <div class="edu-card featured">
+      <div class="edu-year">2021 – 2025</div>
+      <div class="edu-name">Universitas Prima Indonesia</div>
+      <div class="edu-sub">S1 Sistem Informasi</div>
+      <div class="edu-gpa">IPK: 3.91 / 4.00</div>
+    </div>
+    <div class="edu-card">
+      <div class="section-label" style="margin-bottom: 1rem;">Sertifikasi</div>
+      <div class="cert-list">
+        <div class="cert-item">
+          <div class="cert-name">Customer Relation Management</div>
+          <div class="cert-org">BNSP · No. 70209.1221.0.00005093.2025 · 2025</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">Koordinator Divisi Desain</div>
+          <div class="cert-org">UNPRI Creative · 2024</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">Merdeka Student Exchange (PMM)</div>
+          <div class="cert-org">UPN Veteran Jakarta · 2023</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-label">Kontak</div>
+  <h2 class="section-title">Let's Work Together</h2>
+  <p class="contact-sub">Terbuka untuk peluang kerja, kolaborasi proyek, dan freelance.</p>
+  <div class="contact-links">
+    <a href="mailto:esterikasimangunsong25@gmail.com" class="contact-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+      esterikasimangunsong25@gmail.com
+    </a>
+    <a href="https://linkedin.com/in/esterikasimangunsong" target="_blank" class="contact-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      linkedin.com/in/esterikasimangunsong
+    </a>
+    <a href="tel:+6282184985899" class="contact-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 11a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.06 0h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 7.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 14.92z"/></svg>
+      +62 821-8498-5899
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Esterika Simangunsong. All rights reserved.</p>
+  <p>Medan, North Sumatra · Indonesia</p>
+</footer>
+
+</body>
+</html>
